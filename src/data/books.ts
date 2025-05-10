@@ -1,0 +1,182 @@
+import { Book, Category } from '@/types/book'
+
+export const categories: Category[] = [
+  {
+    id: 'quran',
+    name: 'Quran',
+    description: 'Explore translations and tafsir of the Holy Quran',
+    href: '/quran',
+  },
+  {
+    id: 'hadith',
+    name: 'Hadith',
+    description: 'Access authentic hadith collections and explanations',
+    href: '/hadith',
+  },
+  {
+    id: 'fiqh',
+    name: 'Fiqh',
+    description: 'Study Islamic jurisprudence from various schools of thought',
+    href: '/fiqh',
+  },
+  {
+    id: 'aqeedah',
+    name: 'Aqeedah',
+    description: 'Learn about Islamic beliefs and creed',
+    href: '/aqeedah',
+  },
+  {
+    id: 'seerah',
+    name: 'Seerah',
+    description: 'Discover the life and teachings of Prophet Muhammad (peace be upon him)',
+    href: '/seerah',
+  },
+  {
+    id: 'arabic',
+    name: 'Arabic',
+    description: 'Master the Arabic language and grammar',
+    href: '/arabic',
+  },
+  {
+    id: 'history',
+    name: 'History',
+    description: 'Explore Islamic history and civilization',
+    href: '/history',
+  },
+]
+
+export const books: Book[] = [
+  // Quran Books
+  {
+    id: 1,
+    title: 'The Noble Quran',
+    author: 'Dr. Muhammad Taqi-ud-Din Al-Hilali & Dr. Muhammad Muhsin Khan',
+    description: 'A widely used English translation of the Quran with explanatory notes.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'quran',
+  },
+  {
+    id: 2,
+    title: 'Tafsir Ibn Kathir',
+    author: 'Imam Ibn Kathir',
+    description: 'One of the most comprehensive and famous explanations of the Quran.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'quran',
+  },
+  // Hadith Books
+  {
+    id: 3,
+    title: 'Sahih Al-Bukhari',
+    author: 'Imam Muhammad ibn Ismail Al-Bukhari',
+    description: 'One of the six major hadith collections, considered the most authentic collection of hadith.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'hadith',
+  },
+  {
+    id: 4,
+    title: 'Sahih Muslim',
+    author: 'Imam Muslim ibn al-Hajjaj',
+    description: 'One of the six major hadith collections, known for its authenticity and organization.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'hadith',
+  },
+  // Fiqh Books
+  {
+    id: 5,
+    title: 'Reliance of the Traveller',
+    author: 'Ahmad ibn Naqib al-Misri',
+    description: 'A classic manual of Islamic Sacred Law (Shafi\'i) with detailed explanations of rulings.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'fiqh',
+  },
+  {
+    id: 6,
+    title: 'Al-Hidayah',
+    author: 'Al-Marghinani',
+    description: 'A comprehensive guide to Hanafi fiqh, covering various aspects of Islamic law.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'fiqh',
+  },
+  // Aqeedah Books
+  {
+    id: 7,
+    title: 'Kitab at-Tawheed',
+    author: 'Muhammad ibn Abdul Wahhab',
+    description: 'A comprehensive book on Islamic monotheism and the concept of Tawheed.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'aqeedah',
+  },
+  {
+    id: 8,
+    title: 'Aqeedah Tahawiyyah',
+    author: 'Imam Abu Ja\'far at-Tahawi',
+    description: 'A classical text on Islamic creed and beliefs, widely accepted across different schools.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'aqeedah',
+  },
+  // Seerah Books
+  {
+    id: 9,
+    title: 'The Sealed Nectar',
+    author: 'Safiur-Rahman Al-Mubarakpuri',
+    description: 'Award-winning biography of Prophet Muhammad (peace be upon him), covering his life and mission.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'seerah',
+  },
+  {
+    id: 10,
+    title: 'Muhammad: His Life Based on the Earliest Sources',
+    author: 'Martin Lings',
+    description: 'A well-researched biography of Prophet Muhammad (peace be upon him) based on early Islamic sources.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'seerah',
+  },
+  // Arabic Books
+  {
+    id: 11,
+    title: 'Arabic Grammar Made Easy',
+    author: 'Dr. Abu Ameenah Bilal Philips',
+    description: 'A comprehensive guide to Arabic grammar for English speakers.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'arabic',
+  },
+  {
+    id: 12,
+    title: 'Medina Books',
+    author: 'Dr. V. Abdur Rahim',
+    description: 'A series of books for learning Arabic, widely used in Islamic universities.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'arabic',
+  },
+  // History Books
+  {
+    id: 13,
+    title: 'The History of Islam',
+    author: 'Akbar Shah Najeebabadi',
+    description: 'A comprehensive history of Islam from the time of Prophet Muhammad (peace be upon him) to the Ottoman Empire.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'history',
+  },
+  {
+    id: 14,
+    title: 'The Caliphate of Banu Umayyah',
+    author: 'Dr. Ali Muhammad As-Sallabi',
+    description: 'A detailed account of the Umayyad Caliphate and its impact on Islamic civilization.',
+    downloadUrl: '#',
+    readUrl: '#',
+    category: 'history',
+  },
+] 
