@@ -179,4 +179,104 @@ export const books: Book[] = [
     readUrl: '#',
     category: 'history',
   },
+  {
+    id: 15,
+    title: 'Usool Al Thalaatha: The 3 Fundamental Principles',
+    author: 'Shaykh Muhammad ibn Abdul Wahhab',
+    description: 'A foundational text explaining the three fundamental principles of Islam.',
+    downloadUrl: 'https://abdurrahman.org/wp-content/uploads/2014/08/the-three-fundamental-principles-shaykh-bin-abdul-wahab-al-ibaanah-com.pdf',
+    readUrl: '#',
+    category: 'aqeedah',
+    level: 'beginner'
+  },
+  {
+    id: 16,
+    title: 'Al Qawaid Al Arba: The Four Fundamental Principles',
+    author: 'Shaykh Muhammad ibn Abdul Wahhab',
+    description: 'A concise explanation of the four fundamental principles regarding shirk.',
+    downloadUrl: 'https://abdurrahman.org/wp-content/uploads/2014/08/explanation-of-the-rules-regarding-shirk-shaykh-ibn-abdul-wahab-al-ibaanah-com.pdf',
+    readUrl: '#',
+    category: 'aqeedah',
+    level: 'beginner'
+  },
+  {
+    id: 17,
+    title: 'Nawaqaid Al Islam: The 10 Nullifiers of Islam',
+    author: 'Shaykh Muhammad ibn Abdul Wahhab',
+    description: 'An important text explaining the ten major nullifiers of Islam.',
+    downloadUrl: 'https://www.kalamullah.com/Books/Explanation%20of%20the%20Nullifiers%20of%20Islam.pdf',
+    readUrl: '#',
+    category: 'aqeedah',
+    level: 'beginner'
+  },
+  {
+    id: 18,
+    title: 'Kashf ush Shubuhat: Refuting Doubts',
+    author: 'Shaykh Muhammad ibn Abdul Wahhab',
+    description: 'A book addressing common doubts and misconceptions about Tawheed.',
+    downloadUrl: 'https://islamthestudyguides.com/wp-content/uploads/2011/12/kashf-questions-and-answers.pdf',
+    readUrl: '#',
+    category: 'aqeedah',
+    level: 'beginner'
+  },
+  {
+    id: 19,
+    title: 'Usool al Sittah: The 6 Fundamental Principles',
+    author: 'Shaykh Muhammad ibn Abdul Wahhab',
+    description: 'An explanation of the six fundamental principles of Islam.',
+    downloadUrl: 'https://www.salafipublications.com/sps/downloads/pdf/SCL070001.pdf',
+    readUrl: '#',
+    category: 'aqeedah',
+    level: 'beginner'
+  },
+  {
+    id: 20,
+    title: 'Al Aqeedah Al Wasitiyah: Principles of Islamic Creed',
+    author: 'Shaykh ul-Islam Ibn Taymiyyah',
+    description: 'A comprehensive text on Islamic creed and beliefs.',
+    downloadUrl: 'https://www.madinahcollege.uk/wp-content/uploads/alaqeedah_alwasitiyah.pdf',
+    readUrl: '#',
+    category: 'aqeedah',
+    level: 'intermediate'
+  },
+  {
+    id: 21,
+    title: 'Kitab At Tawhid: The Book of Monotheism',
+    author: 'Shaykh Muhammad ibn Abdul Wahhab',
+    description: 'A detailed explanation of Islamic monotheism.',
+    downloadUrl: 'https://www.kalamullah.com/Books/Kitab%20at-Tawheed%20Explained.pdf',
+    readUrl: '#',
+    category: 'aqeedah',
+    level: 'intermediate'
+  },
+  {
+    id: 22,
+    title: 'Usool as Sunnah: The Fundamental Principles of the Sunnah',
+    author: 'Imam Ahmad ibn Hanbal',
+    description: 'A foundational text on the principles of following the Sunnah.',
+    downloadUrl: 'http://www.al-aqeedah.com/wp-content/uploads/2021/01/Usul-As-Sunnah.pdf',
+    readUrl: '#',
+    category: 'aqeedah',
+    level: 'intermediate'
+  },
+  {
+    id: 23,
+    title: 'Ar Risalah At Tadmuriyyah: Towards Understanding Tadumiryyah',
+    author: 'Shaykh ul-Islam Ibn Taymiyyah',
+    description: 'A comprehensive text on Islamic beliefs and creed.',
+    downloadUrl: 'https://www.emaanlibrary.com/wp-content/uploads/2022/01/Towards-Understanding-of-Tadmuriyyah-Exp.-by-Sh.-al-%E2%80%98Uthaymeen.pdf',
+    readUrl: '#',
+    category: 'aqeedah',
+    level: 'intermediate'
+  },
+  {
+    id: 24,
+    title: 'Kitab Al Iman: The Book of Faith',
+    author: 'Shaykh ul-Islam Ibn Taymiyyah',
+    description: 'A detailed explanation of the concept of faith in Islam.',
+    downloadUrl: 'https://www.muslim-library.com/dl/books/english_Kitab_Al_Iman.pdf',
+    readUrl: '#',
+    category: 'aqeedah',
+    level: 'intermediate'
+  }
 ] 

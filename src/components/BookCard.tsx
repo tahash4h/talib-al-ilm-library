@@ -2,9 +2,10 @@ import type { Book } from '@/types/book'
 
 interface BookCardProps {
   book: Book
+  onViewPlaylists?: () => void
 }
 
-export default function BookCard({ book }: BookCardProps) {
+export default function BookCard({ book, onViewPlaylists }: BookCardProps) {
   return (
     <div className="bg-white overflow-hidden shadow rounded-lg">
       <div className="px-4 py-5 sm:p-6">
@@ -14,16 +15,18 @@ export default function BookCard({ book }: BookCardProps) {
         <div className="mt-4 flex space-x-4">
           <a
             href={book.downloadUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Download
           </a>
-          <a
-            href={book.readUrl}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          <button
+            onClick={onViewPlaylists}
+            className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 cursor-pointer"
           >
-            Read Online
-          </a>
+            View Playlists
+          </button>
         </div>
       </div>
     </div>

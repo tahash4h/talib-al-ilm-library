@@ -6,6 +6,7 @@ export interface Book {
   downloadUrl?: string
   readUrl?: string
   category: 'quran' | 'hadith' | 'fiqh' | 'aqeedah' | 'seerah' | 'arabic' | 'history'
+  level?: 'beginner' | 'intermediate' | 'advanced'
 }
 
 export interface Category {
