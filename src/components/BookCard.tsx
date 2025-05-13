@@ -1,32 +1,57 @@
-import type { Book } from '@/types/book'
+'use client'
+
+import { Book } from '@/types/book'
+import BookmarkButton from './BookmarkButton'
 
 interface BookCardProps {
   book: Book
-  onViewPlaylists?: () => void
+  onViewPlaylists: () => void
+  onToggleBookmark: (book: Book) => void
+  isBookmarked: boolean
 }
 
-export default function BookCard({ book, onViewPlaylists }: BookCardProps) {
+export default function BookCard({ book, onViewPlaylists, onToggleBookmark, isBookmarked }: BookCardProps) {
   return (
-    <div className="bg-white overflow-hidden shadow rounded-lg">
-      <div className="px-4 py-5 sm:p-6">
-        <h3 className="text-lg font-medium text-gray-900">{book.title}</h3>
-        <p className="mt-1 text-sm text-gray-500">{book.author}</p>
-        <p className="mt-2 text-sm text-gray-600">{book.description}</p>
-        <div className="mt-4 flex space-x-4">
+    <div 
+      className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer relative h-full flex flex-col"
+      onClick={onViewPlaylists}
+    >
+      <div className="absolute top-2 right-2 flex gap-2">
+        <BookmarkButton 
+          book={book}
+          onToggle={onToggleBookmark}
+          isBookmarked={isBookmarked}
+        />
+        {book.downloadUrl && (
           <a
             href={book.downloadUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            onClick={(e) => e.stopPropagation()}
+            className="p-2 rounded-full bg-white/80 hover:bg-white transition-colors"
+            aria-label="Download book"
           >
-            Download
+            <svg className="w-5 h-5 text-gray-400 hover:text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
           </a>
-          <button
-            onClick={onViewPlaylists}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 cursor-pointer"
-          >
-            View Playlists
-          </button>
+        )}
+      </div>
+      <div className="p-6 flex-grow">
+        <h2 className="text-xl font-semibold text-gray-900 mb-2 line-clamp-2">
+          {book.title}
+        </h2>
+        <p className="text-sm text-gray-600 mb-4">
+          By {book.author}
+        </p>
+        <p className="text-gray-700 mb-4 line-clamp-3">
+          {book.description}
+        </p>
+        <div className="flex items-center text-emerald-600 mt-auto">
+          <span className="text-sm font-medium">View Playlists</span>
+          <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         </div>
       </div>
     </div>

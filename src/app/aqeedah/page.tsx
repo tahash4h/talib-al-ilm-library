@@ -7,6 +7,73 @@ import SearchBar from '@/components/SearchBar'
 import { books } from '@/data/books'
 import { playlists, getPlaylistsByBookId } from '@/data/playlists'
 import type { Book } from '@/types/book'
+import { Playlist } from '@/data/playlists'
+import { Bookmark } from '@/types/bookmark'
+
+interface PlaylistModalProps {
+  isOpen: boolean
+  onClose: () => void
+  book: Book
+  playlists: Playlist[]
+}
+
+const PlaylistModal = ({ isOpen, onClose, book, playlists }: PlaylistModalProps) => {
+  if (!isOpen) return null
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop with blur */}
+      <div 
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      
+      {/* Modal content */}
+      <div className="relative z-50 w-full max-w-4xl mx-4 bg-white rounded-lg shadow-xl">
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">{book.title}</h2>
+            <button
+              onClick={onClose}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          
+          <div className="space-y-6">
+            {playlists.map((playlist) => (
+              <div key={playlist.id} className="border rounded-lg p-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  {playlist.title}
+                </h3>
+                <p className="text-sm text-gray-600 mb-2">
+                  By {playlist.author} • {playlist.language}
+                </p>
+                <p className="text-sm text-gray-700 mb-4">
+                  {playlist.description}
+                </p>
+                <a
+                  href={playlist.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors"
+                >
+                  Watch Playlist
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function AqeedahPage() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -14,6 +81,7 @@ export default function AqeedahPage() {
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([])
   const [selectedBook, setSelectedBook] = useState<Book | null>(null)
   const [showPlaylists, setShowPlaylists] = useState(false)
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
 
   const beginnerBookTitles = [
     'Usool Al Thalaatha: The 3 Fundamental Principles',
@@ -51,20 +119,60 @@ export default function AqeedahPage() {
     setFilteredBooks(filtered)
   }, [searchQuery])
 
+  // Load bookmarks from localStorage on component mount
+  useEffect(() => {
+    const savedBookmarks = localStorage.getItem('bookmarks')
+    if (savedBookmarks) {
+      setBookmarks(JSON.parse(savedBookmarks))
+    }
+  }, [])
+
+  // Save bookmarks to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
+  }, [bookmarks])
+
   const beginnerBooks = filteredBooks.filter(book => beginnerBookTitles.includes(book.title))
   const intermediateBooks = filteredBooks.filter(book => intermediateBookTitles.includes(book.title))
   
   const handleBookClick = (book: Book) => {
     setSelectedBook(book)
     setShowPlaylists(true)
+    // Disable scrolling when modal is open
+    document.body.style.overflow = 'hidden'
   }
   
   const closePlaylistModal = () => {
     setShowPlaylists(false)
     setSelectedBook(null)
+    // Re-enable scrolling when modal is closed
+    document.body.style.overflow = 'auto'
   }
   
   const bookPlaylists = selectedBook ? getPlaylistsByBookId(selectedBook.id) : []
+
+  const toggleBookmark = (book: Book) => {
+    setBookmarks(prevBookmarks => {
+      const isBookmarked = prevBookmarks.some(b => b.bookId === book.id)
+      
+      if (isBookmarked) {
+        return prevBookmarks.filter(b => b.bookId !== book.id)
+      } else {
+        const newBookmark: Bookmark = {
+          id: Date.now(),
+          bookId: book.id,
+          title: book.title,
+          author: book.author,
+          timestamp: Date.now()
+        }
+        return [...prevBookmarks, newBookmark]
+      }
+    })
+  }
+
+  const isBookmarked = (bookId: number) => {
+    return bookmarks.some(bookmark => bookmark.bookId === bookId)
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -88,7 +196,9 @@ export default function AqeedahPage() {
           <div className="mt-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Beginner Books</h2>
             <p className="text-gray-600 mb-6">
-              You don't need any prior knowledge to learn or read any of these books! These books are the perfect place to start if you would like to seek Islamic knowledge. However, you must read them alongside a playlist of an ustadh/shaykh teaching the book. Click on any book to see available playlists.
+              These books are the perfect place to start if you would like to seek Islamic knowledge. 
+              However, you must read them alongside a playlist of an ustadh/shaykh teaching the book. 
+              Click on any book to see available playlists.
             </p>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {isLoading ? (
@@ -110,7 +220,9 @@ export default function AqeedahPage() {
                   <div key={book.id} className="transition-transform hover:scale-105">
                     <BookCard 
                       book={book} 
-                      onViewPlaylists={() => handleBookClick(book)} 
+                      onViewPlaylists={() => handleBookClick(book)}
+                      onToggleBookmark={toggleBookmark}
+                      isBookmarked={isBookmarked(book.id)}
                     />
                   </div>
                 ))
@@ -122,7 +234,8 @@ export default function AqeedahPage() {
           <div className="mt-12">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Intermediate Books</h2>
             <p className="text-gray-600 mb-6">
-              These books should be read after you have read the beginner books and have memorized their contents. Click on any book to see available playlists.
+              These books should be read after you have read the beginner books and have memorized their contents. 
+              Click on any book to see available playlists.
             </p>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {isLoading ? (
@@ -144,7 +257,9 @@ export default function AqeedahPage() {
                   <div key={book.id} className="transition-transform hover:scale-105">
                     <BookCard 
                       book={book} 
-                      onViewPlaylists={() => handleBookClick(book)} 
+                      onViewPlaylists={() => handleBookClick(book)}
+                      onToggleBookmark={toggleBookmark}
+                      isBookmarked={isBookmarked(book.id)}
                     />
                   </div>
                 ))
@@ -160,72 +275,22 @@ export default function AqeedahPage() {
               Click on any book above to see recommended playlists from respected scholars who explain these texts in detail.
               These playlists will guide you through the proper understanding of Islamic creed.
             </p>
+            <p className="text-gray-600 mb-6">
+              REMEMBER TO ADD A DOWNLOADS THINGS
+              The download button will only appear if the book has a downloadUrl property. The button uses the same styling as the bookmark button for consistency, but with a download icon instead.
+            </p>
           </div>
         </div>
       </main>
       
       {/* Playlist Modal */}
       {showPlaylists && selectedBook && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
-            <div className="p-6">
-              <div className="flex justify-between items-start">
-                <h2 className="text-2xl font-bold text-gray-900">{selectedBook.title}</h2>
-                <button 
-                  onClick={closePlaylistModal}
-                  className="text-gray-500 hover:text-gray-700"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              
-              <div className="mt-4">
-                <h3 className="text-lg font-medium text-gray-900">Recommended Playlists</h3>
-                <p className="text-gray-600 mt-1 mb-4">
-                  The following playlists contain detailed explanations of {selectedBook.title} by qualified scholars.
-                </p>
-                
-                {bookPlaylists.length > 0 ? (
-                  <div className="space-y-4">
-                    {bookPlaylists.map((playlist) => (
-                      <div key={playlist.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition duration-150">
-                        <h4 className="font-medium text-gray-900">{playlist.title}</h4>
-                        <p className="text-sm text-gray-600 mt-1">By {playlist.author} • {playlist.language}</p>
-                        <p className="text-gray-700 mt-2">{playlist.description}</p>
-                        <a 
-                          href={playlist.url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="mt-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                        >
-                          Watch Playlist
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-8">
-                    <p className="text-gray-500">No playlists available for this book yet.</p>
-                  </div>
-                )}
-              </div>
-              
-              <div className="mt-6 flex justify-end">
-                <button
-                  onClick={closePlaylistModal}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PlaylistModal
+          isOpen={!!selectedBook}
+          onClose={closePlaylistModal}
+          book={selectedBook}
+          playlists={bookPlaylists}
+        />
       )}
     </div>
   )
