@@ -5,16 +5,16 @@ import BookmarkButton from './BookmarkButton'
 
 interface BookCardProps {
   book: Book
-  onViewPlaylists: () => void
+  onClick: () => void
   onToggleBookmark: (book: Book) => void
   isBookmarked: boolean
 }
 
-export default function BookCard({ book, onViewPlaylists, onToggleBookmark, isBookmarked }: BookCardProps) {
+export default function BookCard({ book, onClick, onToggleBookmark, isBookmarked }: BookCardProps) {
   return (
     <div 
       className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer relative h-full flex flex-col"
-      onClick={onViewPlaylists}
+      onClick={onClick}
     >
       <div className="absolute top-2 right-2">
         <BookmarkButton 
@@ -25,7 +25,7 @@ export default function BookCard({ book, onViewPlaylists, onToggleBookmark, isBo
       </div>
       <div className="p-5 flex-grow flex flex-col">
         <div className="flex-grow">
-          <h2 className="text-xl font-semibold text-gray-900 mb-1.5 line-clamp-2">
+          <h2 className="text-xl font-semibold text-gray-900 mb-1.5 line-clamp-2 mr-8">
             {book.title}
           </h2>
           <p className="text-sm text-gray-600 mb-3">

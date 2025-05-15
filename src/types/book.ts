@@ -7,6 +7,7 @@ export interface Book {
   readUrl?: string
   category: 'quran' | 'hadith' | 'fiqh' | 'aqeedah' | 'seerah' | 'arabic' | 'history'
   level?: 'beginner' | 'intermediate' | 'advanced'
+  school?: 'Hanafi' | 'Maliki' | 'Shafi\'i' | 'Hanbali'
 }
 
 export interface Category {

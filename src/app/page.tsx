@@ -1,5 +1,12 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link'
 import Navigation from '@/components/Navigation'
+import BookCard from '@/components/BookCard';
+import SearchBar from '@/components/SearchBar';
+import { Book } from '@/types/book';
+import { books } from '@/data/books';
 
 const categories = [
   {

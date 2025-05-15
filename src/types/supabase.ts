@@ -99,6 +99,32 @@ export interface Database {
           due_date?: string
         }
       }
+      bookmarks: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          user_id: string
+          book_id: string
+          notes: string | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          user_id: string
+          book_id: string
+          notes?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          user_id?: string
+          book_id?: string
+          notes?: string | null
+        }
+      }
     }
   }
 } 

@@ -80,6 +80,16 @@ export default function FiqhPage() {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null)
   const [showPlaylists, setShowPlaylists] = useState(false)
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
+  const [activeSchool, setActiveSchool] = useState('Hanafi')
+
+  const schools = ['Hanafi', 'Maliki', 'Shafi\'i', 'Hanbali']
+
+  const schoolBooks = {
+    Hanafi: filteredBooks.filter(book => book.school === 'Hanafi'),
+    Maliki: filteredBooks.filter(book => book.school === 'Maliki'),
+    'Shafi\'i': filteredBooks.filter(book => book.school === 'Shafi\'i'),
+    Hanbali: filteredBooks.filter(book => book.school === 'Hanbali')
+  }
 
   const beginnerBookTitles = [
     'The Reliance of the Traveller',
@@ -182,86 +192,46 @@ export default function FiqhPage() {
             </p>
           </div>
 
+          <div className="flex justify-center mb-6" role="tablist" aria-label="Fiqh Schools">
+            {schools.map(school => (
+              <button
+                key={school}
+                type="button"
+                role="tab"
+                aria-selected={activeSchool === school}
+                aria-controls={`panel-${school}`}
+                tabIndex={activeSchool === school ? 0 : -1}
+                onClick={() => setActiveSchool(school)}
+                className={`px-4 py-2 mx-1 rounded-full transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2
+                  ${activeSchool === school
+                    ? 'bg-emerald-600 text-white shadow'
+                    : 'bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50'}
+                `}
+              >
+                {school}
+              </button>
+            ))}
+          </div>
+
           <SearchBar
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search Fiqh books..."
+            placeholder={`Search ${activeSchool} books...`}
           />
 
-          {/* Beginner Books Section */}
           <div className="mt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Beginner Books</h2>
-            <p className="text-gray-600 mb-6">
-              These books provide a solid foundation in Islamic jurisprudence.
-              They cover essential topics like purification, prayer, and fasting.
-            </p>
-            {isLoading ? (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="bg-white overflow-hidden shadow rounded-lg animate-pulse"
-                  >
-                    <div className="h-48 bg-gray-200" />
-                    <div className="px-4 py-5 sm:p-6">
-                      <div className="h-4 bg-gray-200 rounded w-3/4 mb-4" />
-                      <div className="h-4 bg-gray-200 rounded w-1/2 mb-4" />
-                      <div className="h-4 bg-gray-200 rounded w-full" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {beginnerBooks.map((book) => (
-                  <BookCard 
-                    key={book.id} 
-                    book={book} 
-                    onViewPlaylists={() => handleBookClick(book)}
-                    onToggleBookmark={() => toggleBookmark(book)}
-                    isBookmarked={isBookmarked(book.id)}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Intermediate Books Section */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Intermediate Books</h2>
-            <p className="text-gray-600 mb-6">
-              These are comprehensive works of Islamic jurisprudence from different schools of thought.
-              They require a good understanding of Arabic and basic fiqh principles.
-            </p>
-            {isLoading ? (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="bg-white overflow-hidden shadow rounded-lg animate-pulse"
-                  >
-                    <div className="h-48 bg-gray-200" />
-                    <div className="px-4 py-5 sm:p-6">
-                      <div className="h-4 bg-gray-200 rounded w-3/4 mb-4" />
-                      <div className="h-4 bg-gray-200 rounded w-1/2 mb-4" />
-                      <div className="h-4 bg-gray-200 rounded w-full" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {intermediateBooks.map((book) => (
-                  <BookCard 
-                    key={book.id} 
-                    book={book} 
-                    onViewPlaylists={() => handleBookClick(book)}
-                    onToggleBookmark={() => toggleBookmark(book)}
-                    isBookmarked={isBookmarked(book.id)}
-                  />
-                ))}
-              </div>
-            )}
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">{activeSchool} Books</h2>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {(schoolBooks[activeSchool as keyof typeof schoolBooks] || []).map((book) => (
+                <BookCard
+                  key={book.id}
+                  book={book}
+                  onClick={() => handleBookClick(book)}
+                  isBookmarked={isBookmarked(book.id)}
+                  onToggleBookmark={() => toggleBookmark(book)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </main>
