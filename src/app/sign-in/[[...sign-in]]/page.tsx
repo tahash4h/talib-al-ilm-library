@@ -17,6 +17,7 @@ export default function SignInPage() {
                   footerActionLink: 'text-emerald-600 hover:text-emerald-700'
                 }
               }}
+              afterSignInUrl="/"
             />
           </div>
         </div>
