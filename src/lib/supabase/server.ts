@@ -3,8 +3,11 @@ import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 import type { Database } from '@/types/supabase'
 
-const supabaseUrl = 'https://nsisjtaraxczsmchrbpc.supabase.co'
-const supabaseServiceKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zaXNqdGFyYXhjenNtY2hyYnBjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NzE2MjgxMSwiZXhwIjoyMDYyNzM4ODExfQ.DTxholoOPTh4f-xVtyXjfeEvoId8yH0OGmO1W26xWWE'
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL) throw new Error('Missing env.NEXT_PUBLIC_SUPABASE_URL')
+if (!process.env.NEXT_PUBLIC_SUPABASE_SERVICE_KEY) throw new Error('Missing env.NEXT_PUBLIC_SUPABASE_SERVICE_KEY')
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseServiceKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_KEY
 
 // Create admin client with service role key
 export const supabaseAdmin = createSupabaseClient<Database>(
