@@ -220,7 +220,7 @@ export default function AqeedahPage() {
                   <div key={book.id} className="transition-transform hover:scale-105">
                     <BookCard 
                       book={book} 
-                      onViewPlaylists={() => handleBookClick(book)}
+                      onClick={() => handleBookClick(book)}
                       onToggleBookmark={toggleBookmark}
                       isBookmarked={isBookmarked(book.id)}
                     />
@@ -257,7 +257,7 @@ export default function AqeedahPage() {
                   <div key={book.id} className="transition-transform hover:scale-105">
                     <BookCard 
                       book={book} 
-                      onViewPlaylists={() => handleBookClick(book)}
+                      onClick={() => handleBookClick(book)}
                       onToggleBookmark={toggleBookmark}
                       isBookmarked={isBookmarked(book.id)}
                     />
