@@ -20,14 +20,14 @@ const categories = [
     href: '/hadith',
   },
   {
-    name: 'Fiqh',
-    description: 'Study Islamic jurisprudence from various schools of thought',
-    href: '/fiqh',
-  },
-  {
     name: 'Aqeedah',
     description: 'Learn about Islamic beliefs and creed',
     href: '/aqeedah',
+  },
+  {
+    name: 'Fiqh',
+    description: 'Study Islamic jurisprudence from various schools of thought',
+    href: '/fiqh',
   },
   {
     name: 'Seerah',
@@ -44,6 +44,11 @@ const categories = [
     description: 'Explore Islamic history and civilization',
     href: '/history',
   },
+  {
+    name: 'Tazkiyah',
+    description: 'Discover works on spiritual refinement and inner purification',
+    href: '/tazkiyah',
+  },  
 ]
 
 export default function Home() {
